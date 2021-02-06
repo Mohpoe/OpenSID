@@ -1122,4 +1122,18 @@
 
 		return $masa_berlaku;
 	}
+	
+	public function nama_kawil($wilayah)
+	{
+		$wilayah = strtoupper($wilayah);
+		$get_kadus = $this->db
+		->select('u.*')
+		->from('tweb_penduduk u')
+		// ->join('tweb_wil_clusterdesa w', 'u.id_cluster = w.id', 'left')
+		->join('tweb_wil_clusterdesa w', 'u.id = w.id_kepala', 'left')
+		->where('w.dusun', $wilayah)
+		->get()->result_array()[0];
+
+		return $get_kadus;
+	}
 }
